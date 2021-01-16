@@ -5,19 +5,31 @@ on:
   pull_request:
     branches: [master]
 
+env:
+  CI: true
+  FORCE_COLOR: 2
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  run:
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+        node: ['10.x', '12.x', '14].x']
+        os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
+
+      - name: Install
       - run: yarn install
+      - name: Lint
       - run: yarn run lint
