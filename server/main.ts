@@ -1,20 +1,20 @@
 // A simple server that proxies only specific methods to an Ethereum JSON-RPC
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
+//   FIXME: Cannot redeclare block-scoped variable 'express'.
 const express = require('express')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'bodyParser... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'bodyParser... Remove this comment to see the full error message
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable '_'.
+//   FIXME: Cannot redeclare block-scoped variable '_'.
 const _ = require('lodash')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Sentry'.
+//   FIXME: Cannot redeclare block-scoped variable 'Sentry'.
 const Sentry = require('@sentry/node')
 const promBundle = require('express-prom-bundle')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Users'.
+//   FIXME: Cannot redeclare block-scoped variable 'Users'.
 const { Users, hashPass } = require('./model')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Handler'.
+//   FIXME: Cannot redeclare block-scoped variable 'Handler'.
 const { Handler } = require('./handlers')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'writeError... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'writeError... Remove this comment to see the full error message
 const { writeError } = require('./utils')
 
 if (process.env.SENTRY_DSN) {
@@ -24,7 +24,7 @@ if (process.env.SENTRY_DSN) {
   })
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... Remove this comment to see the full error message
 const ALLOWED_METHODS = ['eth_sendBundle', 'eth_callBundle']
 
 function help() {
@@ -72,7 +72,7 @@ if (!validPort(PORT)) {
   process.exit(1)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'app'.
+//   FIXME: Cannot redeclare block-scoped variable 'app'.
 const app = express()
 app.set('trust proxy', true)
 const metricsRequestMiddleware = promBundle({

@@ -1,4 +1,4 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Users'.
+//   FIXME: Cannot redeclare block-scoped variable 'Users'.
 const { Users, generateSalt, generateKeyID, generateSecretKey, hashPass } = require('../model')
 
 async function main() {

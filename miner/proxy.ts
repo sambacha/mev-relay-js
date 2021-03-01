@@ -1,14 +1,14 @@
 // A simple server that proxies only specific methods to an Ethereum JSON-RPC
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
+//   FIXME: Cannot redeclare block-scoped variable 'express'.
 const express = require('express')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'bodyParser... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'bodyParser... Remove this comment to see the full error message
 const bodyParser = require('body-parser')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'request'.
+//   FIXME: Cannot redeclare block-scoped variable 'request'.
 const request = require('request')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable '_'.
+//   FIXME: Cannot redeclare block-scoped variable '_'.
 const _ = require('lodash')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... Remove this comment to see the full error message
 const ALLOWED_METHODS = ['eth_sendBundle']
 
 // @ts-expect-error ts-migrate(2393) FIXME: Duplicate function implementation.
@@ -43,7 +43,7 @@ if (!validPort(GETH_PORT)) {
   process.exit(1)
 }
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'app'.
+//   FIXME: Cannot redeclare block-scoped variable 'app'.
 const app = express()
 app.use(bodyParser.json())
 

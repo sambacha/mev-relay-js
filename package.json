@@ -43,6 +43,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "prettier": "^2.1.2",
-    "ts-migrate": "^0.1.15"
+    "typescript": "^3.8.2"
   }
 }

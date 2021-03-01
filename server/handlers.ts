@@ -1,17 +1,17 @@
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetch'.
+//   FIXME: Cannot redeclare block-scoped variable 'fetch'.
 const fetch = require('node-fetch')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Sentry'.
+//   FIXME: Cannot redeclare block-scoped variable 'Sentry'.
 const Sentry = require('@sentry/node')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'request'.
+//   FIXME: Cannot redeclare block-scoped variable 'request'.
 const request = require('request')
 const AWS = require('aws-sdk')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'writeError... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'writeError... Remove this comment to see the full error message
 const { writeError } = require('./utils')
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkBlack... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'checkBlack... Remove this comment to see the full error message
 const { checkBlacklist } = require('./bundle')
 
-// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Handler'.
+//   FIXME: Cannot redeclare block-scoped variable 'Handler'.
 class Handler {
   MINERS: any;
   SIMULATION_RPC: any;
