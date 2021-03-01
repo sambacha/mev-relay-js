@@ -1,4 +1,4 @@
-// A simple server that proxies only specific methods to an Ethereum JSON-RPC
+// @summary A simple server that proxies only specific methods to an Ethereum JSON-RPC
 //   FIXME: Cannot redeclare block-scoped variable 'express'.
 const express = require('express')
 //   FIXME: Cannot redeclare block-scoped variable 'bodyParser... Remove this comment to see the full error message
@@ -8,15 +8,15 @@ const request = require('request')
 //   FIXME: Cannot redeclare block-scoped variable '_'.
 const _ = require('lodash')
 
-//   FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... Remove this comment to see the full error message
+//   FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... 
 const ALLOWED_METHODS = ['eth_sendBundle']
 
-// @ts-expect-error ts-migrate(2393) FIXME: Duplicate function implementation.
+// FIXME: Duplicate function implementation.
 function help() {
   console.log('node ./miner/proxy.js [PUBLIC_PORT] [GETH_PORT] [GETH_URL]')
 }
 
-// @ts-expect-error ts-migrate(2393) FIXME: Duplicate function implementation.
+//  FIXME: Duplicate function implementation.
 function validPort(port: any) {
   if (isNaN(port) || port < 0 || port > 65535) {
     return false
