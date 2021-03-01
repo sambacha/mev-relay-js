@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Users'.
 const { Users, generateSalt, generateKeyID, generateSecretKey, hashPass } = require('../model')
 
 async function main() {
@@ -25,7 +26,7 @@ async function main() {
   } else if (command === 'dump') {
     const users = await Users.scan().all().exec()
     console.log('email,shortKey')
-    users.forEach((element) => {
+    users.forEach((element: any) => {
       console.log(`${element.email},${element.keyID.slice(0, 8)}`)
     })
   } else if (command === 'getByEmail') {

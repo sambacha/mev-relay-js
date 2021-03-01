@@ -1,13 +1,24 @@
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'fetch'.
 const fetch = require('node-fetch')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Sentry'.
 const Sentry = require('@sentry/node')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'request'.
 const request = require('request')
 const AWS = require('aws-sdk')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'writeError... Remove this comment to see the full error message
 const { writeError } = require('./utils')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkBlack... Remove this comment to see the full error message
 const { checkBlacklist } = require('./bundle')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Handler'.
 class Handler {
-  constructor(MINERS, SIMULATION_RPC, SQS_URL, promClient) {
+  MINERS: any;
+  SIMULATION_RPC: any;
+  SQS_URL: any;
+  bundleCounter: any;
+  sqs: any;
+  constructor(MINERS: any, SIMULATION_RPC: any, SQS_URL: any, promClient: any) {
     this.MINERS = MINERS
     this.SIMULATION_RPC = SIMULATION_RPC
 
@@ -19,7 +30,7 @@ class Handler {
     this.SQS_URL = SQS_URL
   }
 
-  async handleSendBundle(req, res) {
+  async handleSendBundle(req: any, res: any) {
     if (!req.body.params || !req.body.params[0]) {
       writeError(res, 400, 'missing params')
       return
@@ -51,7 +62,7 @@ class Handler {
     }
 
     const requests = []
-    this.MINERS.forEach((minerUrl) => {
+    this.MINERS.forEach((minerUrl: any) => {
       try {
         requests.push(
           fetch(`${minerUrl}`, {
@@ -84,14 +95,14 @@ class Handler {
     res.end(`{"jsonrpc":"2.0","id":${req.body.id},"result":null}`)
   }
 
-  async handleCallBundle(req, res) {
+  async handleCallBundle(req: any, res: any) {
     request
       .post({
         url: this.SIMULATION_RPC,
         body: JSON.stringify(req.body),
         headers: { 'Content-Type': 'application/json' }
       })
-      .on('error', function (error) {
+      .on('error', function (error: any) {
         Sentry.captureException(error)
         console.error('Error in proxying callBundle', error)
         res.writeHead(500)

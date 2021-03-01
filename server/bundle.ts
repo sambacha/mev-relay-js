@@ -1,4 +1,5 @@
 const { Transaction } = require('@ethereumjs/tx')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable '_'.
 const _ = require('lodash')
 
 const BLACKLIST = [
@@ -10,13 +11,14 @@ const BLACKLIST = [
   '0x7f367cc41522ce07553e823bf3be79a889debe1b'
 ]
 
-function checkBlacklistTx(rawTx) {
+function checkBlacklistTx(rawTx: any) {
   const tx = Transaction.fromRlpSerializedTx(rawTx)
 
   return _.includes(BLACKLIST, tx.to.toString()) || _.includes(BLACKLIST, tx.getSenderAddress().toString())
 }
-function checkBlacklist(bundle) {
-  bundle.forEach((tx) => {
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'checkBlack... Remove this comment to see the full error message
+function checkBlacklist(bundle: any) {
+  bundle.forEach((tx: any) => {
     if (checkBlacklistTx(tx)) {
       return true
     }

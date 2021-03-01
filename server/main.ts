@@ -1,13 +1,20 @@
 // A simple server that proxies only specific methods to an Ethereum JSON-RPC
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
 const express = require('express')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'bodyParser... Remove this comment to see the full error message
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable '_'.
 const _ = require('lodash')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Sentry'.
 const Sentry = require('@sentry/node')
 const promBundle = require('express-prom-bundle')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Users'.
 const { Users, hashPass } = require('./model')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'Handler'.
 const { Handler } = require('./handlers')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'writeError... Remove this comment to see the full error message
 const { writeError } = require('./utils')
 
 if (process.env.SENTRY_DSN) {
@@ -17,13 +24,14 @@ if (process.env.SENTRY_DSN) {
   })
 }
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... Remove this comment to see the full error message
 const ALLOWED_METHODS = ['eth_sendBundle', 'eth_callBundle']
 
 function help() {
   console.log('node ./server/main.js minerUrls simulationRpc sqsUrl [PORT]')
 }
 
-function validPort(port) {
+function validPort(port: any) {
   if (isNaN(port) || port < 0 || port > 65535) {
     return false
   }
@@ -64,6 +72,7 @@ if (!validPort(PORT)) {
   process.exit(1)
 }
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'app'.
 const app = express()
 app.set('trust proxy', true)
 const metricsRequestMiddleware = promBundle({
@@ -83,7 +92,7 @@ metricsApp.use(metricsMiddleware)
 app.use(metricsRequestMiddleware)
 app.use(morgan('combined'))
 app.use(bodyParser.json())
-app.use(async (req, res, next) => {
+app.use(async (req: any, res: any, next: any) => {
   const auth = req.header('Authorization')
   if (!auth) {
     writeError(res, 403, 'missing Authorization header')
@@ -107,10 +116,10 @@ app.use(
   rateLimit({
     windowMs: 60 * 1000, // 1 minute
     max: 15,
-    keyGenerator: (req) => {
+    keyGenerator: (req: any) => {
       return `${req.body.method}-${req.header('Authorization')}`
     },
-    onLimitReached: (req) => {
+    onLimitReached: (req: any) => {
       let auth = req.header('Authorization')
       if (_.startsWith(auth, 'Bearer ')) {
         auth = auth.slice(7)
@@ -137,7 +146,7 @@ const uniqueUserGauge = new promClient.Gauge({
   }
 })
 
-app.use(async (req, res, next) => {
+app.use(async (req: any, res: any, next: any) => {
   try {
     let auth = req.header('Authorization')
     if (_.startsWith(auth, 'Bearer ')) {
@@ -164,10 +173,12 @@ app.use(async (req, res, next) => {
       writeError(res, 403, 'invalid Authorization token')
       return
     }
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     let count = UNIQUE_USER_COUNT[keyID]
     if (!count) {
       count = 0
     }
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     UNIQUE_USER_COUNT[keyID] = count + 1
     bundleCounterPerUser.inc({ username: keyID.slice(0, 8) })
 
@@ -194,7 +205,7 @@ app.use(
     keyGenerator: () => {
       return ''
     },
-    onLimitReached: (req) => {
+    onLimitReached: (req: any) => {
       console.log('rate limit reached for global')
     }
   })
@@ -202,7 +213,7 @@ app.use(
 
 const handler = new Handler(MINERS, SIMULATION_RPC, SQS_URL, promClient)
 
-app.use(async (req, res) => {
+app.use(async (req: any, res: any) => {
   try {
     console.log(`request body: ${JSON.stringify(req.body)}`)
 

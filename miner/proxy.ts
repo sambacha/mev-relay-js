@@ -1,16 +1,23 @@
 // A simple server that proxies only specific methods to an Ethereum JSON-RPC
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'express'.
 const express = require('express')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'bodyParser... Remove this comment to see the full error message
 const bodyParser = require('body-parser')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'request'.
 const request = require('request')
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable '_'.
 const _ = require('lodash')
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'ALLOWED_ME... Remove this comment to see the full error message
 const ALLOWED_METHODS = ['eth_sendBundle']
 
+// @ts-expect-error ts-migrate(2393) FIXME: Duplicate function implementation.
 function help() {
   console.log('node ./miner/proxy.js [PUBLIC_PORT] [GETH_PORT] [GETH_URL]')
 }
 
-function validPort(port) {
+// @ts-expect-error ts-migrate(2393) FIXME: Duplicate function implementation.
+function validPort(port: any) {
   if (isNaN(port) || port < 0 || port > 65535) {
     return false
   }
@@ -36,10 +43,11 @@ if (!validPort(GETH_PORT)) {
   process.exit(1)
 }
 
+// @ts-expect-error ts-migrate(2451) FIXME: Cannot redeclare block-scoped variable 'app'.
 const app = express()
 app.use(bodyParser.json())
 
-app.use(function (req, res) {
+app.use(function (req: any, res: any) {
   if (!req.body) {
     res.writeHead(400)
     res.end('invalid json body')
@@ -62,7 +70,7 @@ app.use(function (req, res) {
       body: JSON.stringify(req.body),
       headers: { 'Content-Type': 'application/json' }
     })
-    .on('error', function (e) {
+    .on('error', function (e: any) {
       res.writeHead(500)
       res.end(`error in proxy: ${e}`)
     })
