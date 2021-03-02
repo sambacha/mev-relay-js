@@ -4,7 +4,6 @@
   "description": "A relay for sending flashbots bundle to multiple miners",
   "scripts": {
     "start": "node server/main.js",
-    "lint": "eslint .",
     "miner-proxy": "node miner/proxy.js"
   },
   "repository": {
