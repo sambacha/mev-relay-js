@@ -1,6 +1,6 @@
-const { Transaction } = require('@ethereumjs/tx')
+const { Transaction } = require('@ethereumjs/tx');
 //   FIXME: Cannot redeclare block-scoped variable '_'.
-const _ = require('lodash')
+const _ = require('lodash');
 
 const BLACKLIST = [
   // OFAC banned addresses
@@ -8,23 +8,26 @@ const BLACKLIST = [
   '0xd882cfc20f52f2599d84b8e8d58c7fb62cfe344b',
   '0x901bb9583b24d97e995513c6778dc6888ab6870e',
   '0xa7e5d5a720f06526557c513402f2e6b5fa20b00',
-  '0x7f367cc41522ce07553e823bf3be79a889debe1b'
-]
+  '0x7f367cc41522ce07553e823bf3be79a889debe1b',
+];
 
 function checkBlacklistTx(rawTx: any) {
-  const tx = Transaction.fromRlpSerializedTx(rawTx)
+  const tx = Transaction.fromRlpSerializedTx(rawTx);
 
-  return _.includes(BLACKLIST, tx.to.toString()) || _.includes(BLACKLIST, tx.getSenderAddress().toString())
+  return (
+    _.includes(BLACKLIST, tx.to.toString()) ||
+    _.includes(BLACKLIST, tx.getSenderAddress().toString())
+  );
 }
 //   FIXME: Cannot redeclare block-scoped variable 'checkBlack... Remove this comment to see the full error message
 function checkBlacklist(bundle: any) {
   bundle.forEach((tx: any) => {
     if (checkBlacklistTx(tx)) {
-      return true
+      return true;
     }
-  })
+  });
 
-  return false
+  return false;
 }
 
-module.exports = { checkBlacklist }
+module.exports = { checkBlacklist };
